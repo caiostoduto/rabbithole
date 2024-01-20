@@ -2,7 +2,8 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { createId } from "@paralleldrive/cuid2";
 import { z } from "zod";
-import { Env, KVFileEntry } from "./types/env";
+import { Env } from "./types/env";
+import { FileEntry } from "./types/kv";
 import { r2 } from "./utils/r2";
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
@@ -42,7 +43,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 			contentType,
 			createdAt: new Date().toISOString(),
 			key: fileKey,
-		} as KVFileEntry),
+		} as FileEntry),
 	);
 
 	return new Response(JSON.stringify({ signedUrl, fileId }), { status: 200 });
