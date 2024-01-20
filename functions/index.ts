@@ -1,7 +1,7 @@
 interface Env {
-	KV: KVNamespace;
+	RABBITHOLE: KVNamespace;
 }
 
 export const onRequest: PagesFunction<Env> = async (context) => {
-	return new Response("Hello, world!");
+	return Response.redirect(await context.env.RABBITHOLE.get("_redirect-url"));
 };

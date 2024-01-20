@@ -1,7 +1,11 @@
 interface Env {
-	KV: KVNamespace;
+	RABBITHOLE: KVNamespace;
 }
 
-export const onRequest: PagesFunction<Env> = async (context) => {
-	return new Response("Hello, world!");
+export const onRequestGet: PagesFunction<Env> = async (context) => {
+	return new Response("Get request");
+};
+
+export const onRequestPost: PagesFunction<Env> = async (context) => {
+	return new Response("Post request");
 };
