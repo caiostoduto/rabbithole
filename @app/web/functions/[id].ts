@@ -4,8 +4,15 @@ import { z } from "zod";
 import { Env } from "./types/env";
 import { FileEntry } from "./types/kv";
 import { r2 } from "./utils/r2";
+import { checkTLS } from "./utils/tls";
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
+	try {
+		checkTLS(context);
+	} catch (e) {
+		return e as Response;
+	}
+
 	const fileParamsSchema = z.object({
 		id: z.string().cuid2(),
 	});
