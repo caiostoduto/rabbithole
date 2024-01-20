@@ -1,8 +1,9 @@
-import { z } from "zod";
-import { Env, KVFileEntry } from "./types/env";
-import { r2 } from "./utils/r2";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { z } from "zod";
+import { Env } from "./types/env";
+import { FileEntry } from "./types/kv";
+import { r2 } from "./utils/r2";
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
 	const fileParamsSchema = z.object({
@@ -18,7 +19,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 	}
 
 	const { id } = fileParams;
-	const file = (await context.env.KV.get(id, "json")) as KVFileEntry;
+	const file = (await context.env.KV.get(id, "json")) as FileEntry;
 
 	if (file === null) {
 		return new Response("File not found", { status: 404 });
