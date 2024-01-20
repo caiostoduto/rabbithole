@@ -5,8 +5,15 @@ import { z } from "zod";
 import { Env } from "./types/env";
 import { FileEntry } from "./types/kv";
 import { r2 } from "./utils/r2";
+import { checkTLS } from "./utils/tls";
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
+	try {
+		checkTLS(context);
+	} catch (e) {
+		return e as Response;
+	}
+
 	const uploadBodySchema = z.object({
 		name: z.string().min(1),
 		contentType: z.string().regex(/\w+\/[-+.\w]+/),
