@@ -10,6 +10,7 @@
     "pnpm": ">=8"
   },
   "scripts": {
+    "cli": "pnpm --filter @rabbithole/cli",
     "web": "pnpm --filter @rabbithole/web"
   },
   "repository": {
