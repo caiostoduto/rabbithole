@@ -1,29 +1,9 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
-import { S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { createId } from "@paralleldrive/cuid2";
 import { z } from "zod";
-
-export interface Env {
-	KV: KVNamespace;
-	BUCKET: R2Bucket;
-
-	ENDPOINT: string;
-	BUCKETNAME: string;
-	ACCESSKEYID: string;
-	SECRETACCESSKEY: string;
-}
-
-export function r2(env: Env): S3Client {
-	return new S3Client({
-		region: "auto",
-		endpoint: env.ENDPOINT,
-		credentials: {
-			accessKeyId: env.ACCESSKEYID,
-			secretAccessKey: env.SECRETACCESSKEY,
-		},
-	});
-}
+import { Env, KVFileEntry } from "./types/env";
+import { r2 } from "./utils/r2";
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
 	const uploadBodySchema = z.object({
@@ -35,7 +15,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 	try {
 		uploadBody = uploadBodySchema.parse(await context.request.json());
 	} catch (e) {
-		return new Response(e);
+		return new Response(e, { status: 400 });
 	}
 
 	const { name, contentType } = uploadBody;
@@ -62,7 +42,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 			contentType,
 			createdAt: new Date().toISOString(),
 			key: fileKey,
-		}),
+		} as KVFileEntry),
 	);
 
 	return new Response(JSON.stringify({ signedUrl, fileId }), { status: 200 });
