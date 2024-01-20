@@ -1,0 +1,25 @@
+{
+  "name": "@rabbithole/web",
+  "author": "caiostoduto",
+  "description": "",
+  "version": "0.1.0",
+  "private": true,
+  "keywords": [],
+  "license": "MIT",
+  "scripts": {
+    "pages:dev": "wrangler pages dev --compatibility-date=2024-01-17 --port 3000 -- pnpm start",
+    "pages:deploy": "wrangler pages deploy ."
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.496.0",
+    "@aws-sdk/s3-request-presigner": "^3.496.0",
+    "@paralleldrive/cuid2": "^2.2.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.5.2",
+    "@cloudflare/workers-types": "^4.20240117.0",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.23.0"
+  }
+}
