@@ -8,6 +8,7 @@ import { PreSignedData } from '../types/upload.js';
 import { Observable } from 'rxjs';
 import { progressBar } from '../utils/progress.js';
 import settings from "../utils/settings.js";
+import jwt from "jsonwebtoken";
 
 
 export async function addCommandUpload(program: Command) {
@@ -38,10 +39,7 @@ async function action(path: string, options: options): Promise<void> {
       title: 'Request pre-signed URL',
       task: async (ctx) => {
         ctx.data = JSON.parse((await got.post(baseURL + 'uploads', {
-          json: {
-            name,
-            contentType
-          }
+          body: await jwt.sign({ name, contentType }, settings.get('jwt_secret'), { expiresIn: '1m' })
         })).body) as PreSignedData
       }
     },
