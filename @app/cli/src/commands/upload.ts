@@ -43,7 +43,8 @@ async function action(path: string, options: options): Promise<void> {
       title: 'Upload file',
       task: async (ctx) => {
         return await new Observable((observer) => {
-          let file = createReadStream(path, { highWaterMark: 1024 * 1024 })
+          const file = createReadStream(path, { highWaterMark: 1024 * 1024 })
+          const start = new Date()
 
           got.put(ctx.data.signedUrl, {
             body: file,
@@ -54,7 +55,7 @@ async function action(path: string, options: options): Promise<void> {
           }).on('uploadProgress', (progress) => {
             let percent = Math.round(progress.percent * 100);
 
-            observer.next(progressBar(percent))
+            observer.next(progressBar(percent, start))
           }).then(() => {
             ctx.success = true
             observer.complete()
