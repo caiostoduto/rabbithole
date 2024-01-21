@@ -32,6 +32,11 @@ async function action(path: string, options: options): Promise<void> {
           }
         },
       },
+      {
+        type: 'input',
+        name: 'jwt_secret',
+        message: "JWT Secret",
+      },
     ])
     .then((answers) => {
       settings.overwrite(answers)

@@ -22,11 +22,13 @@
     "commander": "^11.1.0",
     "got": "^14.0.0",
     "inquirer": "^9.2.12",
+    "jsonwebtoken": "^9.0.2",
     "listr": "^0.14.3",
     "mime-types": "^2.1.35",
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.5",
     "@biomejs/biome": "1.5.2",
     "@types/inquirer": "^9.0.7",
     "@types/listr": "^0.14.9",
