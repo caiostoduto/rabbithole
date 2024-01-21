@@ -1,4 +1,4 @@
-export interface preSignedData {
+export interface PreSignedData {
   signedUrl: string
   fileId: string
 }
