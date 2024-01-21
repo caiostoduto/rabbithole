@@ -7,6 +7,7 @@ import { basename } from 'node:path';
 import { PreSignedData } from '../types/upload.js';
 import { Observable } from 'rxjs';
 import { progressBar } from '../utils/progress.js';
+import settings from "../utils/settings.js";
 
 
 export async function addCommandUpload(program: Command) {
@@ -23,7 +24,12 @@ async function action(path: string, options: options): Promise<void> {
     return console.log(`error: file ${path} does not exist`)
   }
 
-  const baseURL = new URL(options.url)
+  let baseURL: URL
+  try {
+    baseURL = new URL(options.url ?? settings.get('rabbithole_url'))
+  } catch (e) {
+    return console.log('error: invalid rabbithole url\ntry running `rabbithole setup`')
+  }
   const name = basename(path)
   const contentType = lookup(path)
 
@@ -64,7 +70,7 @@ async function action(path: string, options: options): Promise<void> {
   ]).run()
     .catch(() => { })
     .then((ctx) => {
-      if (ctx.success === true) console.log(`\n${baseURL + ctx.data.fileId}`)
+      if (ctx && ctx.success === true) console.log(`\n${baseURL + ctx.data.fileId}`)
     })
 }
 
