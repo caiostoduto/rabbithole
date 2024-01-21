@@ -1,10 +1,12 @@
-import axios from 'axios';
+import got from "got";
 import { Command } from "commander";
 import Listr from 'listr';
 import { lookup } from 'mime-types';
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, createReadStream, statSync } from "node:fs";
 import { basename } from 'node:path';
-import { preSignedData } from '../types/upload.js';
+import { PreSignedData } from '../types/upload.js';
+import { Observable } from 'rxjs';
+import { progressBar } from '../utils/progress.js';
 
 
 export async function addCommandUpload(program: Command) {
@@ -17,7 +19,7 @@ export async function addCommandUpload(program: Command) {
 }
 
 async function action(path: string, options: options): Promise<void> {
-  if (!await existsSync(path)) {
+  if (!existsSync(path)) {
     return console.log(`error: file ${path} does not exist`)
   }
 
@@ -29,24 +31,35 @@ async function action(path: string, options: options): Promise<void> {
     {
       title: 'Request pre-signed URL',
       task: async (ctx) => {
-        ctx.data = (await axios.post(baseURL + 'uploads', {
-          name,
-          contentType
-        })).data as preSignedData
+        ctx.data = JSON.parse((await got.post(baseURL + 'uploads', {
+          json: {
+            name,
+            contentType
+          }
+        })).body) as PreSignedData
       }
     },
     {
       title: 'Upload file',
       task: async (ctx) => {
-        const file = await readFileSync(path)
+        return await new Observable((observer) => {
+          let file = createReadStream(path, { highWaterMark: 1024 * 1024 })
 
-        await axios.put(ctx.data.signedUrl, file, {
-          headers: {
-            'Content-Type': contentType
-          }
+          got.put(ctx.data.signedUrl, {
+            body: file,
+            headers: {
+              'Content-Type': contentType as string,
+              'Content-Length': statSync(path).size.toString()
+            },
+          }).on('uploadProgress', (progress) => {
+            let percent = Math.round(progress.percent * 100);
+
+            observer.next(progressBar(percent))
+          }).then(() => {
+            ctx.success = true
+            observer.complete()
+          })
         })
-
-        ctx.success = true
       }
     }
   ]).run()
