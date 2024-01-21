@@ -29,7 +29,7 @@ async function action(path: string, options: options): Promise<void> {
   try {
     baseURL = new URL(options.url ?? settings.get('rabbithole_url'))
   } catch (e) {
-    return console.log('error: invalid rabbithole url\ntry running `rabbithole setup`')
+    return console.log('error: invalid rabbithole url | try running `rabbithole setup`')
   }
   const name = basename(path)
   const contentType = lookup(path)
@@ -38,6 +38,10 @@ async function action(path: string, options: options): Promise<void> {
     {
       title: 'Request pre-signed URL',
       task: async (ctx) => {
+        if (settings.get('jwt_secret') === undefined) {
+          throw new Error('error: jwt_secret not set]n | try running `rabbithole setup`')
+        }
+
         ctx.data = JSON.parse((await got.post(baseURL + 'uploads', {
           body: await jwt.sign({ name, contentType }, settings.get('jwt_secret'), { expiresIn: '1m' })
         })).body) as PreSignedData
