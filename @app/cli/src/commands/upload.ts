@@ -53,9 +53,7 @@ async function action(path: string, options: options): Promise<void> {
               'Content-Length': statSync(path).size.toString()
             },
           }).on('uploadProgress', (progress) => {
-            let percent = Math.round(progress.percent * 100);
-
-            observer.next(progressBar(percent, start))
+            observer.next(progressBar(progress, start))
           }).then(() => {
             ctx.success = true
             observer.complete()
