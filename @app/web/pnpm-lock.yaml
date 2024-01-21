@@ -14,6 +14,9 @@ dependencies:
   '@paralleldrive/cuid2':
     specifier: ^2.2.2
     version: 2.2.2
+  '@tsndr/cloudflare-worker-jwt':
+    specifier: ^2.4.2
+    version: 2.4.2
   zod:
     specifier: ^3.22.4
     version: 3.22.4
@@ -1494,6 +1497,10 @@ packages:
       '@smithy/abort-controller': 2.1.1
       '@smithy/types': 2.9.1
       tslib: 2.6.2
+    dev: false
+
+  /@tsndr/cloudflare-worker-jwt@2.4.2:
+    resolution: {integrity: sha512-/nOjGWo7VvjO5Ewmxn90yVeMBmyjLaGhz+KXOVy3ysZrMWdM9RZVhF47uPueENEoXOiFyXvpjiH91Ts0nH+B9g==}
     dev: false
 
   /@types/node-forge@1.3.11:

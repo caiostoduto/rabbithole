@@ -6,6 +6,8 @@ import { Env } from "./types/env";
 import { FileEntry } from "./types/kv";
 import { r2 } from "./utils/r2";
 import { checkTLS } from "./utils/tls";
+import jwt from '@tsndr/cloudflare-worker-jwt'
+
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
 	try {
@@ -19,9 +21,17 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 		contentType: z.string().regex(/\w+\/[-+.\w]+/),
 	});
 
+	const bodyText = await context.request.text();
+
+	if (!await jwt.verify(bodyText, context.env.JWTSECRET, 'HS256')) {
+		return new Response('Unauthorized', { status: 401 });
+	}
+
+	const decodedBody = jwt.decode(bodyText).payload
+
 	let uploadBody: z.infer<typeof uploadBodySchema>;
 	try {
-		uploadBody = uploadBodySchema.parse(await context.request.json());
+		uploadBody = uploadBodySchema.parse(decodedBody);
 	} catch (e) {
 		return new Response(e, { status: 400 });
 	}

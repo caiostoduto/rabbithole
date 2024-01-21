@@ -5,4 +5,5 @@ export interface Env {
 	BUCKETNAME: string;
 	ACCESSKEYID: string;
 	SECRETACCESSKEY: string;
+	JWTSECRET: string
 }
