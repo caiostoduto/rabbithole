@@ -11,9 +11,9 @@ import { progressBar } from '../utils/progress.js';
 
 export async function addCommandUpload(program: Command) {
   program.command('upload')
-    .description('Split a string into substrings and display as an array')
-    .argument('<path>', 'string to split')
-    .option('-u, --url <url>', 'rh base url')
+    .description('Upload file to rabbithole storage')
+    .argument('<path>', 'path to file')
+    .option('-u, --url <url>', 'rabbithole url')
     .aliases(['u', 'up'])
     .action(action);
 }
