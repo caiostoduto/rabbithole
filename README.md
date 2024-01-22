@@ -26,6 +26,7 @@ pnpm web pages:deploy
 
 # Install cli
 pnpm cli install
+pnpm cli build
 npm install -g ./@app/cli
 ```
 
