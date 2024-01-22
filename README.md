@@ -14,7 +14,7 @@ Inspired by [Construindo back-end de app de upload/download de arquivos](https:/
 
 ## Setting up
 
-### Intallation
+### Installation
 ```bash
 # Clone git repository
 git clone https://github.com/caiostoduto/rabbithole.git
