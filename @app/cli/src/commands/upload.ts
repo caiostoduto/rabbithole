@@ -39,7 +39,7 @@ async function action(path: string, options: options): Promise<void> {
       title: 'Request pre-signed URL',
       task: async (ctx) => {
         if (settings.get('jwt_secret') === undefined) {
-          throw new Error('error: jwt_secret not set]n | try running `rabbithole setup`')
+          throw new Error('error: jwt_secret not set\n | try running `rabbithole setup`')
         }
 
         ctx.data = JSON.parse((await got.post(baseURL + 'uploads', {
@@ -63,6 +63,14 @@ async function action(path: string, options: options): Promise<void> {
           }).on('uploadProgress', (progress) => {
             observer.next(progressBar(progress, start))
           }).then(() => {
+            const history = settings.get('history')
+            history[ctx.data.fileId] = name
+
+            settings.set(
+              'history',
+              history
+            )
+
             ctx.success = true
             observer.complete()
           })

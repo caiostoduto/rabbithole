@@ -3,6 +3,7 @@
 import { Command } from "commander";
 import { readFileSync } from "fs";
 import { addCommandSetup } from "./commands/setup.js";
+import { addCommandHistory } from "./commands/history.js";
 import { addCommandUpload } from "./commands/upload.js";
 
 const program = new Command()
@@ -10,6 +11,7 @@ const program = new Command()
   .description("Rabbithole CLI");
 
 addCommandUpload(program);
-addCommandSetup(program)
+addCommandHistory(program);
+addCommandSetup(program);
 
 program.parse();
