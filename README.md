@@ -5,7 +5,7 @@ Inspired by [Construindo back-end de app de upload/download de arquivos](https:/
 
 ## Features
 
-- [x] Upload files to Cloudflare R2 Bucket
+- [x] Upload files to Cloudflare R2 Bucket using pre-signed URL
 - [x] JWT authentication
 - [x] Progress bar (with percent and average speed)
 - [ ] MIME Content-Type filtering
