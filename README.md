@@ -9,8 +9,8 @@ Inspired by [Construindo back-end de app de upload/download de arquivos](https:/
 - [x] JWT authentication
 - [x] Progress bar (with percent and average speed)
 - [x] Sharable link after upload
+- [X] User upload history
 - [ ] MIME Content-Type filtering
-- [ ] User upload history
 
 ## Setting up
 
@@ -86,6 +86,7 @@ Options:
 
 Commands:
   upload|u [options] <path>  Upload file to rabbithole storage
+  history                    Show history
   setup                      Setup rabbithole cli settings
   help [command]             display help for command
 ```

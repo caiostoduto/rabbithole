@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "axios": "^1.6.5",
+    "chalk": "^5.3.0",
     "commander": "^11.1.0",
     "got": "^14.0.0",
     "inquirer": "^9.2.12",
@@ -28,9 +29,9 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.5",
     "@biomejs/biome": "1.5.2",
     "@types/inquirer": "^9.0.7",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/listr": "^0.14.9",
     "@types/mime-types": "^2.1.4",
     "@types/node": "^20.11.5",
