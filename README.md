@@ -38,8 +38,8 @@ https://developers.cloudflare.com/kv/get-started/
 # Configure KV Namespace in Pages/Functions
 https://developers.cloudflare.com/pages/functions/bindings/
 
-# Add /index redirect to KV (_redirect-url = <url>)
-https://developers.cloudflare.com/kv/get-started/#4-interact-with-your-kv-namespace
+# Add /index redirect URL to KV
+https://github.com/caiostoduto/rabbithole/blob/main/docs/kv-redirect.jpeg
 
 # Create a R2 Bucket
 https://developers.cloudflare.com/r2/get-started/
