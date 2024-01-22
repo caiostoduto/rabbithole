@@ -1,7 +1,7 @@
 # Rabbithole
 Commandline Cloudflare R2 pre-signed url file uploader using KV and Worker\
 \
-Inspired by https://youtu.be/d21EWSFty6M
+Inspired by [Construindo back-end de app de upload/download de arquivos](https://youtu.be/d21EWSFty6M)
 
 ## Features
 
