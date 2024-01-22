@@ -1,8 +1,14 @@
 # Rabbithole
 Commandline Cloudflare R2 pre-signed url file uploader using KV and Worker\
-Inspired by https://youtu.be/d21EWSFty6M\
 \
-[![Construindo back-end de app de upload/download de arquivos](https://img.youtube.com/vi/d21EWSFty6M/0.jpg)](https://youtu.be/d21EWSFty6M)
+Inspired by https://youtu.be/d21EWSFty6M
+
+## Features
+
+- [x] Upload files to Cloudflare R2 Bucket
+- [x] JWT authentication
+- [x] Progress bar (with percent and average speed)
+- [ ] MIME Content-Type filtering
 
 ## Setting up
 
@@ -58,3 +64,15 @@ Enviroment variables:
 | ENDPOINT | Cloudflare R2 Bucket S3 Endpoint |
 | JWTSECRET | Random string without special chars|
 | SECRETACCESSKEY | Cloudflare R2 Bucket ID |
+
+### Usage
+
+```bash
+rabbithole --help
+
+# Upload file
+rabbithole upload <file>
+
+# Setup cli
+rabbithole setup
+```
