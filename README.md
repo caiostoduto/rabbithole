@@ -73,11 +73,18 @@ Enviroment variables:
 ### Usage
 
 ```bash
-rabbithole --help
+$ rabbithole --help
 
-# Upload file
-rabbithole upload <file>
+Usage: rabbithole [options] [command]
 
-# Setup cli
-rabbithole setup
+Rabbithole CLI
+
+Options:
+  -V, --version              output the version number
+  -h, --help                 display help for command
+
+Commands:
+  upload|u [options] <path>  Upload file to rabbithole storage
+  setup                      Setup rabbithole cli settings
+  help [command]             display help for command
 ```
